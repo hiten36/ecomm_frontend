@@ -13,7 +13,7 @@ const breadcrumbsData = [
 ];
 const ProfilePage = () => {
   return (
-    <PublicLayout breadcrumb={breadcrumbsData} breadcrumbTitle='My Profile'>
+    <PublicLayout breadcrumb={breadcrumbsData} breadcrumbTitle='My Profile' >
       <Profile />
     </PublicLayout>
   );

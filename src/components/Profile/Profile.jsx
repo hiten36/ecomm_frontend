@@ -1,9 +1,29 @@
-import { useState } from 'react';
+"use client"
+import { useEffect, useState } from 'react';
 import { ProfileAside } from './ProfileAside/ProfileAside';
 import { ProfileOrders } from './ProfileOrders/ProfileOrders';
+import router from 'next/router';
 
 export const Profile = () => {
   const [activeTab, setActiveTab] = useState('orders');
+
+   const [userData , setUserData] = useState([]);
+
+   useEffect(()=>{
+        const checkUser = localStorage.getItem("ecomm_user");
+        console.log('checkUser' , checkUser);
+        if(checkUser){
+          var storedUserObject = JSON.parse(checkUser);
+
+          setUserData(storedUserObject);
+
+        }
+        else{
+          alert("user not login ");
+        }
+   },[])
+
+   console.log('userData0 ' , userData);
   return (
     <>
       {/* <!-- BEGIN PROFILE --> */}
@@ -37,10 +57,14 @@ export const Profile = () => {
                 <div className='box-tab-cont'>
                   {activeTab === 'myInfo' && (
                     <div className='tab-cont' id='profile-tab_1'>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Neque quasi, sit vel exercitationem ea veniam quo
-                      asperiores corporis dignissimos quod id. Adipisci libero
-                      similique a commodi fugiat quibusdam maiores ipsa!
+                    
+
+                      <p>Name : <span>{userData?.firstName} {userData?.lastName}</span></p>
+                      <p>email : <span>{userData?.email}</span></p>
+                      <p>PhoneNumber : <span>{userData?.phoneNumber}</span></p>
+
+            
+
                     </div>
                   )}
 
