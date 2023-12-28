@@ -38,10 +38,17 @@ export const Login = () => {
      
       if(!formattedResponse.success){
       alert(formattedResponse.message);
+
+         
+
       } else{
         console.log(formattedResponse);
         alert(formattedResponse.message);
-       
+        
+        var userObjectString = JSON.stringify(formattedResponse.user);
+
+        localStorage.setItem('ecomm_user' , userObjectString);
+
         router.push('/');
 
       }
