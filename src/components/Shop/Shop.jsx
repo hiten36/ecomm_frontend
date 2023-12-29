@@ -14,6 +14,7 @@ const options = [
   { value: 'highToMin', label: 'From expensive to cheap' },
   { value: 'minToHigh', label: 'From cheap to expensive' },
 ];
+
 export const Shop = () => {
   const allProducts = [...productData];
 
@@ -21,7 +22,11 @@ export const Shop = () => {
     allProducts.sort((a, b) => (a.price < b.price ? 1 : -1))
   );
 
-  const [products, setProducts] = useState([...productOrder]);
+  const [products, setProducts] = useState([]);
+
+
+  const [topThree , setTopThree] = useState([]);
+
   const [filter, setFilter] = useState({ isNew: false, isSale: true });
 
   useEffect(() => {
@@ -44,8 +49,7 @@ export const Shop = () => {
       setProducts([...productOrder]);
     }
   }, [filter, productOrder]);
-  const recentlyViewed = [...productData].slice(0, 3);
-  const todaysTop = [...productData].slice(3, 6);
+
   const paginate = usePagination(products, 9);
 
   const handleSort = (value) => {
@@ -58,6 +62,99 @@ export const Shop = () => {
       setProductOrder(newOrder);
     }
   };
+
+
+  const [filterList , setFilterList] = useState([]);
+
+  const [filterItem, setFilterItem] = useState(null);
+
+
+
+  const fetchCategory = async()=>{
+    try {
+      const response = await fetch(
+        "http://localhost:4000/api/v1/showAllCategory",
+        {
+          method: "GET",
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
+
+      const formattedResponse = await response.json();
+
+      if(formattedResponse.success){
+        setFilterList(formattedResponse.data);
+        setFilterItem(formattedResponse.data[0]._id);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const fetchProducts = async () => {
+
+    try {
+      const response = await fetch(
+        `http://localhost:4000/api/v1/categoryPageDetails/${filterItem}`,
+        {
+          method: "GET",
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
+
+      const formattedResponse = await response.json();
+      console.log("category" , formattedResponse);
+
+      if(formattedResponse.success){
+        setProducts(formattedResponse?.data?.selectedCategory?.products);
+
+      }
+
+      console.log("actedetail" , formattedResponse);
+
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchAllProducts = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:4000/api/v1/fetchAllProducts",
+        {
+          method: "GET",
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
+
+      const formattedResponse = await response.json();
+
+      const reversedProducts = formattedResponse.allProducts.reverse();
+
+      const topThreePro =  reversedProducts.slice(0,3);
+
+      setTopThree(topThreePro);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+ useEffect(()=>{
+ fetchProducts();
+ },[filterItem])
+
+  useEffect(()=>{
+  fetchCategory();
+  fetchAllProducts();
+  },[])
 
   return (
     <div>
@@ -78,38 +175,19 @@ export const Shop = () => {
               <div className='shop-aside__item'>
                 <span className='shop-aside__item-title'>Categories</span>
                 <ul>
-                  <li>
-                    <a href='#'>
-                      Make up <span>(37)</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      SPA <span>(162)</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      Perfume <span>(153)</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      Nails <span>(86)</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      Skin care <span>(48)</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      Hair care <span>(54)</span>
-                    </a>
-                  </li>
+                  {
+                    filterList?.map((item ,index)=>(
+                      <li onClick={()=>setFilterItem(item._id)} key={index}>
+                      <a href='#'>
+                      {item.title}
+                      </a>
+                    </li>
+                    ))
+                  }
+               
                 </ul>
               </div>
+
               <div className='shop-aside__item'>
                 <span className='shop-aside__item-title'>Price</span>
                 <div className='range-slider'>
@@ -126,19 +204,22 @@ export const Shop = () => {
                   />
                 </div>
               </div>
+
               <div className='shop-aside__item'>
                 <span className='shop-aside__item-title'>You have viewed</span>
-                {recentlyViewed.map((data) => (
+                {topThree.map((data) => (
                   <AsideItem key={data.id} aside={data} />
                 ))}
               </div>
+
               <div className='shop-aside__item'>
                 <span className='shop-aside__item-title'>Top 3 for today</span>
-                {todaysTop.map((data) => (
+                {topThree.map((data) => (
                   <AsideItem key={data.id} aside={data} />
                 ))}
               </div>
             </div>
+
             {/* <!-- Shop Main --> */}
             <div className='shop-main'>
               <div className='shop-main__filter'>

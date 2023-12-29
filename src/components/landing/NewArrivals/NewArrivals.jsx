@@ -24,8 +24,12 @@ export const NewArrivals = () => {
       );
 
       const formattedResponse = await response.json();
+
+      const reversedProducts = formattedResponse.allProducts.reverse();
+
       console.log("formatted", formattedResponse);
-      setProducts(formattedResponse.allProducts);
+      
+      setProducts(reversedProducts);
     } catch (error) {
       console.log(error);
     }
