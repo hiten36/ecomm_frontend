@@ -11,7 +11,7 @@ export const Products = ({ products }) => {
   };
   return (
     <>
-      {products.map((product) => (
+      {products?.map((product) => (
         <SingleProduct
           addedInCart={Boolean(cart?.find((pd) => pd.id === product.id))}
           key={product.id}

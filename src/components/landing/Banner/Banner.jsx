@@ -1,6 +1,25 @@
+"use client"
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 export const Banner = () => {
+
+  const [userData , setUserData] = useState([]);
+
+  useEffect(()=>{
+       const checkUser = localStorage.getItem("ecomm_user");
+       console.log('checkUser' , checkUser);
+       if(checkUser){
+         var storedUserObject = JSON.parse(checkUser);
+
+         setUserData(storedUserObject);
+
+       }
+       else{
+         alert("user not login ");
+       }
+  },[])
+
   return (
     <>
       {/* <!-- BEGIN MAIN BLOCK --> */}
@@ -8,7 +27,8 @@ export const Banner = () => {
         <div className='wrapper'>
           <div className='main-block__content'>
             <span className='saint-text'>Professional</span>
-            <h1 className='main-text'>Beauty &amp; Care</h1>
+            <p>Welcome <span>{userData?.firstName} {userData?.lastName}</span></p>        
+                <h1 className='main-text'>Beauty &amp; Care</h1>
             <p>
               Nourish your skin with toxin-free cosmetic products. With the
               offers that you can’t refuse.

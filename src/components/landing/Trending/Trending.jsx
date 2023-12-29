@@ -1,54 +1,19 @@
 import { ProductsCarousel } from 'components/Product/Products/ProductsCarousel';
 import { SectionTitle } from 'components/shared/SectionTitle/SectionTitle';
 import { useEffect, useState } from 'react';
-import productData from 'data/product/product';
 
 export const Trending = () => {
-  const trendingProducts = [...productData];
-  const [products, setProducts] = useState([]);
-  const [filterItem, setFilterItem] = useState('makeup');
   
-
-  useEffect(() => {
-    const newItems = trendingProducts.filter((pd) =>
-      pd.filterItems.includes(filterItem)
-    );
-    setProducts(newItems);
-
-    fetchProducts();
-  }, [filterItem]);
-
-  const filterList = [
-    {
-      name: 'Make Up',
-      value: 'makeup',
-    },
-    {
-      name: 'SPA',
-      value: 'spa',
-    },
-    {
-      name: 'Perfume',
-      value: 'perfume',
-    },
-    {
-      name: 'Nails',
-      value: 'nail',
-    },
-    {
-      name: 'Skin care',
-      value: 'skin',
-    },
-    {
-      name: 'Hair care',
-      value: 'hair',
-    },
-  ];
+  const [products, setProducts] = useState([]);
+  const [filterItem, setFilterItem] = useState('');
+  
+  const [filterList , setFilterList] = useState([]);
 
   const fetchProducts = async () => {
+
     try {
       const response = await fetch(
-        "http://localhost:4000/api/v1/fetchAllProducts",
+        `http://localhost:4000/api/v1/categoryPageDetails/${filterItem}`,
         {
           method: "GET",
           headers: {
@@ -58,16 +23,55 @@ export const Trending = () => {
       );
 
       const formattedResponse = await response.json();
-      console.log("formatted", formattedResponse);
-      setProducts(formattedResponse.allProducts);
+
+      if(formattedResponse.success){
+        setProducts(formattedResponse?.data?.selectedCategory?.products);
+
+      }
+
+      console.log("actedetail" , formattedResponse);
+
+
     } catch (error) {
       console.log(error);
     }
   };
 
+  const fetchCategory = async()=>{
+    try {
+      const response = await fetch(
+        "http://localhost:4000/api/v1/showAllCategory",
+        {
+          method: "GET",
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
+
+      const formattedResponse = await response.json();
+
+      if(formattedResponse.success){
+        setFilterList(formattedResponse.data);
+        setFilterItem(formattedResponse.data[0]._id);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
+    fetchCategory();
     fetchProducts();
+
+   
   }, []);
+
+
+  useEffect(() => {
+
+    fetchProducts();
+  }, [filterItem]);
 
 
   return (
@@ -82,14 +86,14 @@ export const Trending = () => {
           />
           <div className='tab-wrap trending-tabs'>
             <ul className='nav-tab-list tabs'>
-              {filterList.map((item ,index) => (
+              {filterList?.map((item ,index) => (
                 <li
                   // key={item.value}
 key={index}
-                  onClick={() => setFilterItem(item.value)}
-                  className={item.value === filterItem ? 'active' : ''}
+                  onClick={() => setFilterItem(item._id)}
+                  className={item?._id === filterItem ? 'active' : ''}
                 >
-                  {item.name}
+                  {item?.title}
                 </li>
               ))}
             </ul>
