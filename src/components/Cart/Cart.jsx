@@ -5,8 +5,11 @@ import { useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
 
 export const Cart = () => {
-  const { cart, setCart } = useContext(CartContext);
+
+  const { cart } = useContext(CartContext);
+
   const [count, setCount] = useState(0);
+
   const socialLinks = [...socialData];
 
   const total = cart.reduce(
@@ -15,20 +18,20 @@ export const Cart = () => {
   );
 
   const handleProductQuantity = (change, quantity, id) => {
-    console.log(change, quantity, id);
+    console.log("this is",change, quantity, id);
     if (change === 'increment') {
-      cart.find((item) => item.id === id).quantity = quantity + 1;
+      cart.find((item) => item._id === id).quantity = quantity + 1;
       setCount(count + 1);
     }
     if (change === 'decrement' && quantity > 1) {
-      cart.find((item) => item.id === id).quantity = quantity - 1;
+      cart.find((item) => item._id === id).quantity = quantity - 1;
       setCount(count + 1);
     }
   };
 
-  useEffect(() => {
-    setCart(cart);
-  }, [cart, count]);
+
+ 
+
 
   return (
     <>
@@ -47,9 +50,9 @@ export const Cart = () => {
               {cart.map((cart) => (
                 <Card
                   onChangeQuantity={(change, quantity) =>
-                    handleProductQuantity(change, quantity, cart.id)
+                    handleProductQuantity(change, quantity, cart._id)
                   }
-                  key={cart.id}
+                  key={cart._id}
                   cart={cart}
                 />
               ))}

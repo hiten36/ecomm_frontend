@@ -6,7 +6,7 @@ export const SingleProduct = ({
   onAddToCart,
   addedInCart,
 }) => {
-  const { title, oldPrice, price, thumbnail, isSale, isNew, id } = product;
+  const { title, price, thumbnail, isSale, isNew, _id } = product;
   if(thumbnail?.length > 0){
     var image = thumbnail[0];
   }
@@ -21,19 +21,19 @@ export const SingleProduct = ({
         <div className='products-item__img'>
           <img src={image !== null && image} className='js-img' alt='' />
           <div className='products-item__hover'>
-            <Link href={`/product/${id}`}>
+            <Link href={`/product/${_id}`}>
               <a>
                 <i className='icon-search'></i>
               </a>
             </Link>
             <div className='products-item__hover-options'>
-              <button className='addList' onClick={() => onAddToWish(id)}>
+              <button className='addList' onClick={() => onAddToWish(_id)}>
                 <i className='icon-heart'></i>
               </button>
               <button
                 disabled={addedInCart}
                 className={`addList ${addedInCart ? 'added' : ''}`}
-                onClick={() => onAddToCart(id)}
+                onClick={() => onAddToCart(_id)}
               >
                 <i className='icon-cart'></i>
               </button>
@@ -41,13 +41,13 @@ export const SingleProduct = ({
           </div>
         </div>
         <div className='products-item__info'>
-          <Link href={`/product/${id}`}>
+          <Link href={`/product/${_id}`}>
             <a>
               <span className='products-item__name'>{title}</span>
             </a>
           </Link>
           <span className='products-item__cost'>
-            <span>{oldPrice && `$${oldPrice}`}</span> ${price}
+             ${price}
           </span>
         </div>
       </div>

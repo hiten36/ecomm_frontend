@@ -6,6 +6,8 @@ export const Trending = () => {
   
   const [products, setProducts] = useState([]);
   const [filterItem, setFilterItem] = useState('');
+
+
   
   const [filterList , setFilterList] = useState([]);
 
@@ -89,8 +91,8 @@ export const Trending = () => {
               {filterList?.map((item ,index) => (
                 <li
                   // key={item.value}
-key={index}
-                  onClick={() => setFilterItem(item._id)}
+                  key={index}
+                   onClick={() => setFilterItem(item._id)}
                   className={item?._id === filterItem ? 'active' : ''}
                 >
                   {item?.title}

@@ -34,18 +34,16 @@ export const Login = () => {
       });
   
       const formattedResponse = await response.json();
-      console.log('forde' , formattedResponse);
      
       if(!formattedResponse.success){
       alert(formattedResponse.message);
 
-         
-
       } else{
-        console.log(formattedResponse);
         alert(formattedResponse.message);
-        
+
         var userObjectString = JSON.stringify(formattedResponse.user);
+
+        localStorage.setItem('ecomm_userToken' , formattedResponse?.token);
 
         localStorage.setItem('ecomm_user' , userObjectString);
 
