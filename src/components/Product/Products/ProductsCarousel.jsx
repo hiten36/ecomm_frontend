@@ -1,3 +1,4 @@
+"use client"
 import {
   SlickArrowPrev,
   SlickArrowNext,
@@ -8,12 +9,43 @@ import Slider from 'react-slick';
 import { SingleProduct } from './SingleProduct/SingleProduct';
 
 export const ProductsCarousel = ({ products }) => {
-  const { cart, setCart } = useContext(CartContext);
 
-  const handleAddToCart = (id) => {
-    const newProduct = products?.find((pd) => pd.id === id);
-    setCart([...cart, { ...newProduct, quantity: 1 }]);
+  const { cart  , token} = useContext(CartContext);
+
+  
+
+  const handleAddToCart = async(id) => {
+
+    try {
+      const response = await fetch(
+        `http://localhost:4000/api/v1/addToCart/${id}`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+
+          },
+        }
+      );
+
+      const formattedResponse = await response.json();
+
+       console.log("afteraddtocart" , formattedResponse);
+
+       if(formattedResponse.success){
+        alert("successfuly added to cart");
+       }
+       else {
+        alert(formattedResponse.message)
+       }
+
+    } catch (error) {
+      console.log(error);
+    }
+
   };
+
 
   const settings = {
     dots: false,
@@ -50,13 +82,15 @@ export const ProductsCarousel = ({ products }) => {
     ],
   };
 
+
   return (
     <>
       <Slider {...settings}>
         {products?.map((product) => (
           <SingleProduct
-            addedInCart={Boolean(cart?.find((pd) => pd.id === product.id))}
-            key={product.id}
+          
+            addedInCart={Boolean(cart?.find((pd) => pd._id === product._id))}
+            key={product._id}
             product={product}
             onAddToWish={(id) => console.log(id)}
             onAddToCart={handleAddToCart}

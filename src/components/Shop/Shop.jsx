@@ -10,6 +10,7 @@ import { AsideItem } from '../shared/AsideItem/AsideItem';
 // React Range
 const { createSliderWithTooltip } = Slider;
 const Range = createSliderWithTooltip(Slider.Range);
+
 const options = [
   { value: 'highToMin', label: 'From expensive to cheap' },
   { value: 'minToHigh', label: 'From cheap to expensive' },
