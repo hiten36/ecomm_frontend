@@ -18,7 +18,6 @@ export const TopCategories = () => {
       });
   
       const formattedResponse = await response.json();
-      console.log('forde' , formattedResponse);
 
       if(formattedResponse.success){
         setCategories(formattedResponse.data);

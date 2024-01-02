@@ -21,7 +21,6 @@ export const MostViewed = ({ additionalClass }) => {
       );
 
       const formattedResponse = await response.json();
-      console.log("formatted", formattedResponse);
       setMostViewed(formattedResponse.allProducts);
     } catch (error) {
       console.log(error);

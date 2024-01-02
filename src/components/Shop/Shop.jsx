@@ -108,14 +108,12 @@ export const Shop = () => {
       );
 
       const formattedResponse = await response.json();
-      console.log("category" , formattedResponse);
 
       if(formattedResponse.success){
         setProducts(formattedResponse?.data?.selectedCategory?.products);
 
       }
 
-      console.log("actedetail" , formattedResponse);
 
 
     } catch (error) {

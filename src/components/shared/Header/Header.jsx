@@ -7,7 +7,10 @@ import { useContext, useEffect, useState } from 'react';
 import { Nav } from './Nav/Nav';
 
 export const Header = () => {
-  const { cart } = useContext(CartContext);
+  const { cart , wishlist } = useContext(CartContext);
+
+  console.log("cartHeaderCall" ,cart?.length);
+
   const [promo, setPromo] = useState(true);
   const [fixedNav, setFixedNav] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
@@ -85,6 +88,7 @@ export const Header = () => {
                 <Link href='/wishlist'>
                   <a>
                     <i className='icon-heart'></i>
+                    <span>{wishlist?.length ?? '0'}</span>
                   </a>
                 </Link>
               </li>

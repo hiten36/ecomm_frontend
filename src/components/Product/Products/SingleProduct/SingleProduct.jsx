@@ -5,6 +5,7 @@ export const SingleProduct = ({
   onAddToWish,
   onAddToCart,
   addedInCart,
+  addedInWishlist
 }) => {
   const { title, price, thumbnail, isSale, isNew, _id } = product;
   if(thumbnail?.length > 0){
@@ -27,7 +28,7 @@ export const SingleProduct = ({
               </a>
             </Link>
             <div className='products-item__hover-options'>
-              <button className='addList' onClick={() => onAddToWish(_id)}>
+              <button disabled={addedInWishlist} className={`addList ${addedInWishlist?'added':''}`} onClick={() => onAddToWish(_id)}>
                 <i className='icon-heart'></i>
               </button>
               <button

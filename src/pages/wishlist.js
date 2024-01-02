@@ -12,6 +12,8 @@ const breadcrumbsData = [
     path: '/wishlist',
   },
 ];
+
+
 const WishlistPage = () => {
   return (
     <PublicLayout breadcrumb={breadcrumbsData} breadcrumbTitle='Wishlist'>

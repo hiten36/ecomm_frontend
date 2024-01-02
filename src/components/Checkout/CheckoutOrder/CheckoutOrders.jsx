@@ -15,7 +15,7 @@ export const CheckoutOrders = () => {
       <div className='checkout-order'>
         <h5>Your Order</h5>
         {cart.map((order) => (
-          <Card key={order.id} order={order} />
+          <Card key={order._id} order={order} />
         ))}
       </div>
       <div className='cart-bottom__total'>
