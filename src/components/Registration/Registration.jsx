@@ -43,12 +43,10 @@ export const Registration = () => {
     });
 
     const formattedResponse = await response.json();
-    console.log('forde' , formattedResponse);
    
     if(!formattedResponse.success){
     alert(formattedResponse.message);
     } else{
-      console.log(formattedResponse);
       alert(formattedResponse.message);
       router.push('/login');
     }

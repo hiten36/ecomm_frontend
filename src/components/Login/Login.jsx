@@ -1,8 +1,12 @@
 import { SocialLogin } from 'components/shared/SocialLogin/SocialLogin';
 import router from 'next/router';
 import { useState } from 'react';
+import { CartContext } from 'pages/_app';
+import { useContext } from 'react';
 
 export const Login = () => {
+
+  const {  setToken , setUserDetails} = useContext(CartContext);
 
 
   const [formDetails , setFormDetails]  = useState({
@@ -23,7 +27,6 @@ export const Login = () => {
 
       e.preventDefault();
   
-  
       const response = await fetch("http://localhost:4000/api/v1/login", {
         method: "POST",
         headers: {
@@ -32,19 +35,22 @@ export const Login = () => {
         // the body will send like this to backend
         body: JSON.stringify(formDetails),
       });
-  
+
       const formattedResponse = await response.json();
-     
+
       if(!formattedResponse.success){
       alert(formattedResponse.message);
 
       } else{
         alert(formattedResponse.message);
+        
 
         var userObjectString = JSON.stringify(formattedResponse.user);
 
         localStorage.setItem('ecomm_userToken' , formattedResponse?.token);
-
+        
+        setToken(formattedResponse?.token);
+        setUserDetails(formattedResponse?.user);
         localStorage.setItem('ecomm_user' , userObjectString);
 
         router.push('/');

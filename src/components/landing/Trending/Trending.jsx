@@ -31,8 +31,6 @@ export const Trending = () => {
 
       }
 
-      console.log("actedetail" , formattedResponse);
-
 
     } catch (error) {
       console.log(error);

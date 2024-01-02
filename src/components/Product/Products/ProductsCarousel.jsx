@@ -10,9 +10,7 @@ import { SingleProduct } from './SingleProduct/SingleProduct';
 
 export const ProductsCarousel = ({ products }) => {
 
-  const { cart  , token} = useContext(CartContext);
-
-  
+  const { cart ,wishlist , token , fetchAllCartItem , fetchAllWishlistItem } = useContext(CartContext); 
 
   const handleAddToCart = async(id) => {
 
@@ -31,14 +29,13 @@ export const ProductsCarousel = ({ products }) => {
 
       const formattedResponse = await response.json();
 
-       console.log("afteraddtocart" , formattedResponse);
 
        if(formattedResponse.success){
         alert("successfuly added to cart");
+
+        fetchAllCartItem();
        }
-       else {
-        alert(formattedResponse.message)
-       }
+      
 
     } catch (error) {
       console.log(error);
@@ -46,6 +43,34 @@ export const ProductsCarousel = ({ products }) => {
 
   };
 
+  const handleAddToWishlist = async(id)=>{
+    try {
+      const response = await fetch(`http://localhost:4000/api/v1/addToWishlist/${id}`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+
+          },
+        }
+      );
+
+      const formattedResponse = await response.json();
+
+       if(formattedResponse.success){
+         alert("successfuly added to wishlist");
+         fetchAllWishlistItem();
+       }
+       else {
+        alert(formattedResponse.message)
+       }
+
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const settings = {
     dots: false,
@@ -90,9 +115,10 @@ export const ProductsCarousel = ({ products }) => {
           <SingleProduct
           
             addedInCart={Boolean(cart?.find((pd) => pd._id === product._id))}
+            addedInWishlist = {Boolean(wishlist?.find((wish)=>wish._id === product._id))}
             key={product._id}
             product={product}
-            onAddToWish={(id) => console.log(id)}
+            onAddToWish={handleAddToWishlist}
             onAddToCart={handleAddToCart}
           />
         ))}

@@ -8,6 +8,7 @@ export const Cart = () => {
 
   const { cart } = useContext(CartContext);
 
+
   const [count, setCount] = useState(0);
 
   const socialLinks = [...socialData];
@@ -18,7 +19,6 @@ export const Cart = () => {
   );
 
   const handleProductQuantity = (change, quantity, id) => {
-    console.log("this is",change, quantity, id);
     if (change === 'increment') {
       cart.find((item) => item._id === id).quantity = quantity + 1;
       setCount(count + 1);
@@ -28,9 +28,6 @@ export const Cart = () => {
       setCount(count + 1);
     }
   };
-
-
- 
 
 
   return (

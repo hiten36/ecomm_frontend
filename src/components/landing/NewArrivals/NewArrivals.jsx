@@ -27,7 +27,6 @@ export const NewArrivals = () => {
 
       const reversedProducts = formattedResponse.allProducts.reverse();
 
-      console.log("formatted", formattedResponse);
       
       setProducts(reversedProducts);
     } catch (error) {

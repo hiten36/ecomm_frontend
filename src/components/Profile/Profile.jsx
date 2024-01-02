@@ -11,7 +11,6 @@ export const Profile = () => {
 
    useEffect(()=>{
         const checkUser = localStorage.getItem("ecomm_user");
-        console.log('checkUser' , checkUser);
         if(checkUser){
           var storedUserObject = JSON.parse(checkUser);
 
@@ -23,7 +22,6 @@ export const Profile = () => {
         }
    },[])
 
-   console.log('userData0 ' , userData);
   return (
     <>
       {/* <!-- BEGIN PROFILE --> */}
