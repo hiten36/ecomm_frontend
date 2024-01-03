@@ -21,7 +21,7 @@ const fetchAllCartItem = async()=>{
 
    let token = localStorage.getItem("ecomm_userToken");
 
-   console.log("this funtion call");
+    if(token){
   try {
     const response = await fetch(
       "http://localhost:4000/api/v1/fetchAllCartItems",
@@ -37,7 +37,6 @@ const fetchAllCartItem = async()=>{
 
     const formattedResponse = await response.json();
 
-    console.log("cartResponse" ,formattedResponse);
 
    if(formattedResponse?.success){
               
@@ -46,10 +45,15 @@ setCart(formattedResponse?.cartItems);
   } catch (error) {
     console.log(error);
   }
+} else{
+  setCart([]);
+}
 }
 
 const fetchAllWishlistItem = async()=>{
  let token = localStorage.getItem("ecomm_userToken");
+
+ if(token){
   try {
     const response = await fetch(
       "http://localhost:4000/api/v1/fetchAllWishlistItem",
@@ -70,6 +74,11 @@ setWishlist(formattedResponse?.wishlistItem);
     console.log(error);
   }
 }
+else{
+  setWishlist([]);
+}
+
+}
 
 
 useEffect(()=>{
@@ -78,7 +87,9 @@ useEffect(()=>{
  }
 
  if(localStorage.getItem("ecomm_user")){
-  setUserDetails(localStorage.getItem("ecomm_user"));
+  const checkUser = localStorage.getItem("ecomm_user");
+  var storedUserObject = JSON.parse(checkUser);
+  setUserDetails(storedUserObject);
  }
  fetchAllCartItem();
  fetchAllWishlistItem();
@@ -87,11 +98,8 @@ useEffect(()=>{
 
   return (
     <>
-    {/* <Head> */}
-    {/* Add the Razorpay SDK script here */}
-    {/* <script src="https://checkout.razorpay.com/v1/checkout.js"></script> */}
-  {/* </Head> */}
-    <CartContext.Provider value={{ cart, setCart , token , userDetails , setToken , setUserDetails , wishlist , fetchAllCartItem , fetchAllWishlistItem }}>
+   
+    <CartContext.Provider value={{ cart, setCart, token , userDetails , setToken , setUserDetails , wishlist , fetchAllCartItem , fetchAllWishlistItem }}>
       <Component {...pageProps} />
     </CartContext.Provider>
    

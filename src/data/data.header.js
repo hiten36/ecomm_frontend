@@ -35,18 +35,18 @@ export const navItem = [
         name: 'Product',
         path: '/product',
       },
-      {
-        name: 'Post',
-        path: '/blog/2633',
-      },
+      // {
+      //   name: 'Post',
+      //   path: '/blog/2633',
+      // },
       {
         name: 'Checkout',
         path: '/checkout',
       },
-      {
-        name: '404',
-        path: '/404',
-      },
+      // {
+      //   name: '404',
+      //   path: '/404',
+      // },
       {
         name: 'Cart',
         path: '/cart',
@@ -54,7 +54,10 @@ export const navItem = [
       {
         name: 'Wishlist',
         path: '/wishlist',
-      },
+      },{
+        name: 'Logout',
+        path:"/"
+      }
     ],
   },
   {

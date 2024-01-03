@@ -1150,6 +1150,23 @@ h6,
   display: flex;
 }
 
+.select_box{
+
+  background: #ffffff;
+  border: 1px solid #fcedea;
+  height: 60px;
+  line-height: 60px;
+  padding: 18px 29px;
+  font-size: 14px;
+  width: 100%;
+  outline: none;
+  margin: 20px 0px;
+  color: #999999;
+
+
+}
+
+
 .box-field {
   .form-control {
     background: #ffffff;

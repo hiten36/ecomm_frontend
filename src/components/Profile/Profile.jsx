@@ -17,9 +17,9 @@ export const Profile = () => {
           setUserData(storedUserObject);
 
         }
-        else{
-          alert("user not login ");
-        }
+        // else{
+        //   alert("user not login ");
+        // }
    },[])
 
   return (
