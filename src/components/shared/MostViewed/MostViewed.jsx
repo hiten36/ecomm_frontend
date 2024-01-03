@@ -40,7 +40,6 @@ export const MostViewed = ({ additionalClass }) => {
           title="You Have Viewed"
           body="Nourish your skin with toxin-free cosmetic products. With the offers that you can’t refuse."
         />
-
         <div className="products-items">
           <ProductsCarousel products={mostViewed} />
         </div>
