@@ -2,7 +2,7 @@ import { CartContext } from 'pages/_app';
 import { useContext, useEffect, useState } from 'react';
 
 
-export const CheckoutStep2 = ({ onNext, onPrev }) => {
+export const CheckoutStep2 = ({  onPrev }) => {
 
   const [payment, setPayment] = useState('credit-card');
 
@@ -42,22 +42,25 @@ export const CheckoutStep2 = ({ onNext, onPrev }) => {
          body: JSON.stringify({products}),
        }
      );
+    
 
      const formattedResponse = await response.json();
- 
 
+     let amount = formattedResponse.message.amount/100;
+     
+  
      const options = {
       key:"rzp_test_eAwoqbEXBt3CVM", 
-    amount: "50000", 
+    amount:amount, 
     currency: "INR",
     name: "Manish singh rajwar",
     description: "product transaction",
     order_id: formattedResponse?.message?.id,
-    callback_url: "http://localhost:4000/api/v1/payment/verifySignature",
+    callback_url: `http://localhost:4000/api/v1/payment/verifySignature/${token}`,
     prefill: {
         name: "login user name",
         email: "loginEmail.com",
-        contact: "contactNumber"
+        contact: "contactNumber" , 
     },
     "notes": {
         "address": "Razorpay Corporate Office"
@@ -67,10 +70,9 @@ export const CheckoutStep2 = ({ onNext, onPrev }) => {
     }
      }
  
-     const paymentObject = new window.Razorpay(options);
-     paymentObject.open();
- 
-      console.log("razpr" , razor);
+     const paymentObject = new window.Razorpay(options  ,token);
+
+paymentObject.open();
 
    } catch (error) {
      console.log(error);

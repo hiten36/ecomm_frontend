@@ -9,20 +9,26 @@ import { Nav } from './Nav/Nav';
 export const Header = () => {
   const { cart , wishlist } = useContext(CartContext);
 
-  console.log("cartHeaderCall" ,cart?.length);
 
   const [promo, setPromo] = useState(true);
   const [fixedNav, setFixedNav] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const [height, width] = useWindowSize();
 
+
   // For Fixed nav
   useEffect(() => {
+
     window.addEventListener('scroll', isSticky);
+
     return () => {
       window.removeEventListener('scroll', isSticky);
     };
+
   });
+
+
+
 
   const isSticky = () => {
     const scrollTop = window.scrollY;
@@ -77,6 +83,9 @@ export const Header = () => {
                   </a>
                 </Link>
               </li>
+
+            
+            
               <li>
                 <Link href='/profile'>
                   <a>
@@ -100,6 +109,7 @@ export const Header = () => {
                   </a>
                 </Link>
               </li>
+              
             </ul>
           </div>
 

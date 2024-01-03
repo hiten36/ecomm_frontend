@@ -19,14 +19,15 @@ export const CheckoutOrders = () => {
         ))}
       </div>
       <div className='cart-bottom__total'>
-        <div className='cart-bottom__total-goods'>
+        <div 
+        className='cart-bottom__total-goods'>
           Goods on
           <span>${total.toFixed(2)}</span>
         </div>
-        <div className='cart-bottom__total-promo'>
+        {/* <div className='cart-bottom__total-promo'>
           Discount on promo code
           <span>No</span>
-        </div>
+        </div> */}
         <div className='cart-bottom__total-delivery'>
           Delivery{' '}
           <span className='cart-bottom__total-delivery-date'>

@@ -23,6 +23,7 @@ const detailBlocks = [
 ];
 
 export const Checkout = () => {
+  
   const [activeStep, setActiveStep] = useState(1);
 
   const handleNext = () => {
