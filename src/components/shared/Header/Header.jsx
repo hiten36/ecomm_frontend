@@ -9,7 +9,6 @@ import { Nav } from './Nav/Nav';
 export const Header = () => {
   const { cart , wishlist } = useContext(CartContext);
 
-
   const [promo, setPromo] = useState(true);
   const [fixedNav, setFixedNav] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
@@ -26,9 +25,6 @@ export const Header = () => {
     };
 
   });
-
-
-
 
   const isSticky = () => {
     const scrollTop = window.scrollY;
@@ -50,6 +46,7 @@ export const Header = () => {
       enableBodyScroll(document);
     }
   }, [openMenu, height]);
+
   return (
     <>
       {/* <!-- BEGIN HEADER --> */}
@@ -83,9 +80,6 @@ export const Header = () => {
                   </a>
                 </Link>
               </li>
-
-            
-            
               <li>
                 <Link href='/profile'>
                   <a>
@@ -109,7 +103,7 @@ export const Header = () => {
                   </a>
                 </Link>
               </li>
-              
+        
             </ul>
           </div>
 
