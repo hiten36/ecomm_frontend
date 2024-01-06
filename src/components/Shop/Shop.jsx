@@ -25,7 +25,6 @@ export const Shop = () => {
 
   const [products, setProducts] = useState([]);
 
-
   const [topThree , setTopThree] = useState([]);
 
   const [filter, setFilter] = useState({ isNew: false, isSale: true });
@@ -98,7 +97,7 @@ export const Shop = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:4000/api/v1/categoryPageDetails/${filterItem}`,
+        `http://localhost:4000/api/v1/getProductsByCategoryId/${filterItem}`,
         {
           method: "GET",
           headers: {
@@ -110,7 +109,7 @@ export const Shop = () => {
       const formattedResponse = await response.json();
 
       if(formattedResponse.success){
-        setProducts(formattedResponse?.data?.selectedCategory?.products);
+        setProducts(formattedResponse?.products);
 
       }
 
@@ -134,6 +133,8 @@ export const Shop = () => {
       );
 
       const formattedResponse = await response.json();
+
+      console.log("Res",formattedResponse);
 
       const reversedProducts = formattedResponse.allProducts.reverse();
 

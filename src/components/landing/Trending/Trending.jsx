@@ -6,20 +6,17 @@ export const Trending = () => {
   
   const [products, setProducts] = useState([]);
   const [filterItem, setFilterItem] = useState('');
-
-
-  
   const [filterList , setFilterList] = useState([]);
+  console.log("finterItem" ,filterItem);
 
   const fetchProducts = async () => {
 
     try {
-      const response = await fetch(
-        `http://localhost:4000/api/v1/categoryPageDetails/${filterItem}`,
+      const response = await fetch( `http://localhost:4000/api/v1/getProductsByCategoryId/${filterItem}`,
         {
           method: "GET",
           headers: {
-            "content-type": "application/json",
+            // "content-type": "application/json",
           },
         }
       );
@@ -27,7 +24,7 @@ export const Trending = () => {
       const formattedResponse = await response.json();
 
       if(formattedResponse.success){
-        setProducts(formattedResponse?.data?.selectedCategory?.products);
+        setProducts(formattedResponse?.products);
 
       }
 
