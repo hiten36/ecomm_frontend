@@ -2,7 +2,7 @@ export const PagingList = ({ paginate }) => {
   return (
     <ul className='paging-list'>
       <li
-        onClick={() => paginate.prev()}
+        onClick={() => paginate?.prev()}
         className='paging-list__item paging-prev'
       >
         <button className='paging-list__link'>
@@ -10,7 +10,7 @@ export const PagingList = ({ paginate }) => {
         </button>
       </li>
 
-      {[...Array(paginate.maxPage)].map((x, i) => (
+      {[Array(paginate?.maxPage)]?.map((x, i) => (
         <li
           key={i}
           onClick={() => paginate.jump(i + 1)}
@@ -23,7 +23,7 @@ export const PagingList = ({ paginate }) => {
       ))}
 
       <li
-        onClick={() => paginate.next()}
+        onClick={() => paginate?.next()}
         className='paging-list__item paging-next'
       >
         <button className='paging-list__link'>

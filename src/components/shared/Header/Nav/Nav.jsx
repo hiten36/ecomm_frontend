@@ -16,6 +16,8 @@ export const Nav = ({ navItem }) => {
       setSub(false);
     }
   }, [height]);
+
+  
   return (
     <ul className='header-nav'>
       {navItem.map((nav) => (
