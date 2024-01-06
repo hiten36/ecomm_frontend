@@ -11,6 +11,32 @@ header {
   -webkit-order: 1;
 }
 
+.categoryHeader{
+  position: relative;
+
+  .categorySub{
+   position: absolute;
+   width: calc(100%+20px);
+   display: none;
+   margin: 10px 0px;
+        background-color: pink;
+          }
+  
+  .singleCat{
+    font-size: 0.9rem;
+    margin: 0 auto;
+    text-align: center;
+    padding: 3px 20px;
+    margin: 20px 0px;
+    border-bottom: 2px solid rgb(243, 179, 189);
+  }
+
+}
+
+.categoryHeader:hover .categorySub{
+    display: block;
+}
+
 .header {
   position: absolute;
   left: 0;

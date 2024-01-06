@@ -9,6 +9,8 @@ export const Nav = ({ navItem }) => {
   const [sub, setSub] = useState(false);
   const [height, width] = useWindowSize();
 
+  const [allCat , setAllCat] = useState([]);
+
   const {setUserDetails ,fetchAllCartItem,fetchAllWishlistItem, setToken  , token} = useContext(CartContext);
 
   useEffect(() => {
@@ -17,7 +19,37 @@ export const Nav = ({ navItem }) => {
     }
   }, [height]);
 
+
+  const fetchAllCategory = async()=>{
+    try{
+      const response = await fetch( "http://localhost:4000/api/v1/showAllCategory",
+        {
+          method: "GET",
+          headers: {
+            "content-type": "application/json",
   
+          },
+        }
+      );
+  
+      const formattedResponse = await response.json();
+
+      if(formattedResponse?.success){
+         setAllCat(formattedResponse?.data);
+      }
+      else{
+        alert(formattedResponse?.message);
+      }
+
+    } catch(error){
+      console.log(error);
+    }
+  }
+  
+ useEffect(()=>{
+ fetchAllCategory();
+ },[])
+
   return (
     <ul className='header-nav'>
       {navItem.map((nav) => (
@@ -27,11 +59,47 @@ export const Nav = ({ navItem }) => {
             nav.subNav ? setSub(!sub) : '';
           }}
         >
-          <Link href={nav.path}>
-            <a className={nav.path === router.pathname ? 'active' : ''}>
+           {
+            nav.name === 'Categories' ? 
+            (
+            <Link href={nav.path}>
+
+
+            <a className={`${nav.path === router.pathname ? 'active' : ''} categoryHeader `  }>
               {nav.name}
+
+              <div className='categorySub'>
+                      {
+                        allCat?.map((cat)=>(
+                          <Link href={`/categoryProduct/${cat._id}`}>
+                          <p className='singleCat' onClick={()=>{
+                        
+                            sessionStorage.setItem("ecomm_catPro" , cat?._id)}
+                            
+                            } key={cat._id}>{cat?.title}</p>
+                          </Link>
+                        ))
+                      }
+              </div>
+
             </a>
+
           </Link>
+          
+          ):(
+  <Link href={nav.path}>
+
+  <a className={nav.path === router.pathname ? 'active' : ''}>
+    {nav.name}
+  </a>
+
+</Link>
+          )
+      
+           }
+          
+        
+
           {nav.subNav && (
             <ul className={sub ? 'active' : ''}>
               {nav.subNav.map((sub) => (
@@ -65,8 +133,7 @@ export const Nav = ({ navItem }) => {
                           </Link>
                         </li>
                         ):(
-                          <li key={sub.path}>
-                          
+                          <li key={sub.path}>     
                           <Link href={sub.path}>
                             <a >{sub.name}</a>
                           </Link>
