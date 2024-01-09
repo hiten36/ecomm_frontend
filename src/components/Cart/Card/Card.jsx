@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { CartContext } from 'pages/_app';
+import { useContext } from 'react';
 
 export const Card = ({ cart, onChangeQuantity }) => {
   const {
@@ -8,6 +10,42 @@ export const Card = ({ cart, onChangeQuantity }) => {
     price,
     quantity,
   } = cart;
+
+  const {  fetchAllCartItem  } = useContext(CartContext); 
+
+
+  const removeFromCart = async()=>{
+    const token = localStorage.getItem("ecomm_userToken");
+
+    try{
+
+      const response = await fetch(`http://localhost:4000/api/v1/removeFromCart/${_id}`,
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+
+        },
+      }
+
+    );
+
+     const data = await response.json();
+
+       if(data?.success){
+        alert("Successfuly remove");
+        fetchAllCartItem();
+       }
+       else{
+        alert(data?.message);
+       }
+
+    } catch(error){
+      console.log(error);
+      alert("Internal server error , please try again")
+    }
+  }
 
   return (
     <>
@@ -59,6 +97,12 @@ export const Card = ({ cart, onChangeQuantity }) => {
           <span className='cart-table__total'>
             {/* ${(price * quantity).toFixed(2)} */}
             ${price}
+          </span>
+        </div>
+        <div onClick={()=>removeFromCart()} className='cart-table__col'>
+          <span style={{cursor:"pointer"}} className='cart-table__total'>
+            {/* ${(price * quantity).toFixed(2)} */}
+          Remove
           </span>
         </div>
       </div>
