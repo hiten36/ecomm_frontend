@@ -1,7 +1,6 @@
 import { Products } from 'components/Product/Products/Products';
 import { PagingList } from 'components/shared/PagingList/PagingList';
 import { usePagination } from 'components/utils/Pagination/Pagination';
-import productData from 'data/product/product';
 import Slider from 'rc-slider';
 import { useEffect, useState } from 'react';
 import Dropdown from 'react-dropdown';
@@ -17,52 +16,13 @@ const options = [
 ];
 
 export const Shop = () => {
-  const allProducts = [...productData];
-
-  const [productOrder, setProductOrder] = useState(
-    allProducts.sort((a, b) => (a.price < b.price ? 1 : -1))
-  );
+  
 
   const [products, setProducts] = useState([]);
 
   const [topThree , setTopThree] = useState([]);
 
-  const [filter, setFilter] = useState({ isNew: false, isSale: true });
-
-  useEffect(() => {
-    setProducts(productOrder);
-  }, [productOrder]);
-
-  useEffect(() => {
-    if (filter.isNew && filter.isSale) {
-      const newPro = productOrder.filter(
-        (pd) => pd.isNew === true && pd.isSale === true
-      );
-      setProducts(newPro);
-    } else if (filter.isNew && !filter.isSale) {
-      const newPro = productOrder.filter((pd) => pd.isNew === true);
-      setProducts(newPro);
-    } else if (filter.isSale && !filter.isNew) {
-      const newPro = productOrder.filter((pd) => pd.isSale === true);
-      setProducts(newPro);
-    } else {
-      setProducts([...productOrder]);
-    }
-  }, [filter, productOrder]);
-
   const paginate = usePagination(products, 9);
-
-  const handleSort = (value) => {
-    if (value === 'highToMin') {
-      const newOrder = allProducts.sort((a, b) => (a.price < b.price ? 1 : -1));
-      setProductOrder(newOrder);
-    }
-    if (value === 'minToHigh') {
-      const newOrder = allProducts.sort((a, b) => (a.price > b.price ? 1 : -1));
-      setProductOrder(newOrder);
-    }
-  };
-
 
   const [filterList , setFilterList] = useState([]);
 
@@ -109,7 +69,8 @@ export const Shop = () => {
       const formattedResponse = await response.json();
 
       if(formattedResponse.success){
-        setProducts(formattedResponse?.products);
+        const newOrder = formattedResponse?.products?.sort((a, b) => (a.price < b.price ? 1 : -1));
+        setProducts(newOrder);
 
       }
 
@@ -134,8 +95,6 @@ export const Shop = () => {
 
       const formattedResponse = await response.json();
 
-      console.log("Res",formattedResponse);
-
       const reversedProducts = formattedResponse.allProducts.reverse();
 
       const topThreePro =  reversedProducts.slice(0,3);
@@ -145,16 +104,30 @@ export const Shop = () => {
       console.log(error);
     }
   };
-
-
+  
  useEffect(()=>{
- fetchProducts();
- },[filterItem])
+  fetchProducts();
+  },[filterItem])
+ 
+   useEffect(()=>{
+   fetchCategory();
+   fetchAllProducts();
+   },[])
+ 
+  const handleSort = (value) => {
+    if (value === 'highToMin') {
+      console.log("run")
+      const newOrder = products.sort((a, b) => (a.price < b.price ? 1 : -1));
+      setProducts(newOrder);
+    }
+    if (value === 'minToHigh') {
+      console.log("ru00n" , products);
+      const newOrder = products.sort((a, b) => (a.price > b.price ? 1 : -1));
+      setProducts(newOrder);
+    }
+  };
 
-  useEffect(()=>{
-  fetchCategory();
-  fetchAllProducts();
-  },[])
+
 
   return (
     <div>
@@ -253,11 +226,12 @@ export const Shop = () => {
                     className='react-dropdown'
                     onChange={(option) => handleSort(option.value)}
                     value={options[0]}
+
                   />
                 </div>
               </div>
               <div className='shop-main__items'>
-                <Products products={paginate?.currentData()} />
+                <Products products={products} />
               </div>
 
               {/* <!-- PAGINATE LIST --> */}

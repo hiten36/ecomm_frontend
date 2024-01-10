@@ -65,6 +65,7 @@ export const Products = ({ products }) => {
     }
   }
 
+  console.log("rere");
 
   return (
     <>
