@@ -102,10 +102,10 @@ export const ProductDetails = () => {
               <span className='product-num'>SKU: {product.productNumber}</span>
               {product.oldPrice ? (
                 <span className='product-price'>
-                  <span>${product.oldPrice}</span>${product.price}
+                  <span>₹{product.oldPrice}</span>₹{product.price}
                 </span>
               ) : (
-                <span className='product-price'>${product.price}</span>
+                <span className='product-price'>₹{product.price}</span>
               )}
               <p>{product.content}</p>
 

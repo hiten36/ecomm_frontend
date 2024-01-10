@@ -43,12 +43,7 @@ export const Profile = () => {
                   >
                     My orders
                   </li>
-                  <li
-                    onClick={() => setActiveTab('wishList')}
-                    className={activeTab === 'wishList' ? 'active' : ''}
-                  >
-                    Wishlist
-                  </li>
+                
                 </ul>
 
                 <div className='box-tab-cont'>
@@ -67,15 +62,7 @@ export const Profile = () => {
 
                   {activeTab === 'orders' && <ProfileOrders />}
 
-                  {activeTab === 'wishList' && (
-                    <div className='tab-cont' id='profile-tab_3'>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Cumque tempore saepe blanditiis omnis. Reprehenderit
-                      officia atque facere tempora, neque quaerat et aliquid
-                      tempore mollitia, nemo, minima iste placeat cupiditate
-                      odio?
-                    </div>
-                  )}
+                
                 </div>
               </div>
             </div>

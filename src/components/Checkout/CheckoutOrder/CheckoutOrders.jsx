@@ -22,7 +22,7 @@ export const CheckoutOrders = () => {
         <div 
         className='cart-bottom__total-goods'>
           Goods on
-          <span>${total.toFixed(2)}</span>
+          <span>₹{total.toFixed(2)}</span>
         </div>
         {/* <div className='cart-bottom__total-promo'>
           Discount on promo code
@@ -33,11 +33,11 @@ export const CheckoutOrders = () => {
           <span className='cart-bottom__total-delivery-date'>
             (Aug 28,2020 at 11:30)
           </span>
-          <span>$30</span>
+          <span>₹30</span>
         </div>
         <div className='cart-bottom__total-num'>
           total:
-          <span>${(total + 30).toFixed(2)}</span>
+          <span>₹{(total + 30).toFixed(2)}</span>
         </div>
       </div>
     </>

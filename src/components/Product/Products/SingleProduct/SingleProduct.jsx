@@ -48,7 +48,7 @@ export const SingleProduct = ({
             </a>
           </Link>
           <span className='products-item__cost'>
-             ${price}
+          ₹{price}
           </span>
         </div>
       </div>
