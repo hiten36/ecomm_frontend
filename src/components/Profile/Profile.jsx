@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import { ProfileAside } from './ProfileAside/ProfileAside';
 import { ProfileOrders } from './ProfileOrders/ProfileOrders';
-import router from 'next/router';
 
 export const Profile = () => {
   const [activeTab, setActiveTab] = useState('orders');

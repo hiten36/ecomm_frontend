@@ -28,6 +28,8 @@ export const CheckoutStep2 = ({  onPrev }) => {
 
      const products = cart.map(product => product._id);
 
+      console.log("rpduct" , products);
+
      const token = localStorage.getItem("ecomm_userToken");
 
    try {
@@ -56,7 +58,7 @@ export const CheckoutStep2 = ({  onPrev }) => {
     name: "Manish singh rajwar",
     description: "product transaction",
     order_id: formattedResponse?.message?.id,
-    callback_url: `http://localhost:4000/api/v1/payment/verifySignature/${token}`,
+    // callback_url: `http://localhost:4000/api/v1/payment/verifySignature/${token}`,
     prefill: {
         name: "login user name",
         email: "loginEmail.com",
@@ -72,7 +74,7 @@ export const CheckoutStep2 = ({  onPrev }) => {
  
      const paymentObject = new window.Razorpay(options  ,token);
 
-paymentObject.open();
+  paymentObject.open();
 
    } catch (error) {
      console.log(error);
