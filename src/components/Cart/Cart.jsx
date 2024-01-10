@@ -18,7 +18,36 @@ export const Cart = () => {
     0
   );
 
-  const handleProductQuantity = (change, quantity, id) => {
+  const handleProductQuantity =async (change, quantity, id) => {
+
+    const token = localStorage.getItem("ecomm_userToken");
+
+
+    try{
+
+      const response = await fetch(`http://localhost:4000/api/v1/productQuantity/${id}`,
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+
+        },
+        body: JSON.stringify({change})
+      }
+
+    );
+
+
+     const data = await response.json();
+
+     console.log("data" ,data);
+
+    } catch(error){
+      console.log(error);
+      
+    }
+
     if (change === 'increment') {
       cart.find((item) => item._id === id).quantity = quantity + 1;
       setCount(count + 1);
@@ -95,7 +124,7 @@ export const Cart = () => {
             <div className='cart-bottom__total'>
               <div className='cart-bottom__total-goods'>
                 Goods on
-                <span>${total.toFixed(2)}</span>
+                <span>{total.toFixed(2)}</span>
               </div>
               <div className='cart-bottom__total-promo'>
                 Discount on promo code
@@ -103,7 +132,7 @@ export const Cart = () => {
               </div>
               <div className='cart-bottom__total-num'>
                 total:
-                <span>${total.toFixed(2)}</span>
+                <span>{total.toFixed(2)}</span>
               </div>
               <Link href='/checkout'>
                 <a className='btn'>Checkout</a>

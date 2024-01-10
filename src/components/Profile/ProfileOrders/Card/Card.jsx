@@ -18,7 +18,7 @@ export const Card = ({ order, index, onCollapse, active }) => {
           </div>
           <div className='profile-orders__col'>
             <span className='profile-orders__col-mob'>amount</span>
-            <span className='profile-orders__item-price'>${totalAmount}</span>
+            <span className='profile-orders__item-price'>₹{totalAmount}</span>
           </div>
           {/* <div className='profile-orders__col'>
             <span className='profile-orders__col-mob'>Status</span>
