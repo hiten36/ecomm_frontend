@@ -188,7 +188,7 @@ export const Shop = () => {
                 </ul>
               </div>
 
-              <div className='shop-aside__item'>
+              {/* <div className='shop-aside__item'>
                 <span className='shop-aside__item-title'>Price</span>
                 <div className='range-slider'>
                   <Range
@@ -203,7 +203,7 @@ export const Shop = () => {
                     }}
                   />
                 </div>
-              </div>
+              </div> */}
 
               <div className='shop-aside__item'>
                 <span className='shop-aside__item-title'>You have viewed</span>
@@ -224,7 +224,7 @@ export const Shop = () => {
             <div className='shop-main'>
               <div className='shop-main__filter'>
                 <div className='shop-main__checkboxes'>
-                  <label className='checkbox-box'>
+                  {/* <label className='checkbox-box'>
                     <input
                       checked={filter.isSale}
                       onChange={() =>
@@ -234,8 +234,8 @@ export const Shop = () => {
                     />
                     <span className='checkmark'></span>
                     SALE
-                  </label>
-                  <label className='checkbox-box'>
+                  </label> */}
+                  {/* <label className='checkbox-box'>
                     <input
                       checked={filter.isNew}
                       onChange={() =>
@@ -245,7 +245,7 @@ export const Shop = () => {
                     />
                     <span className='checkmark'></span>
                     NEW
-                  </label>
+                  </label> */}
                 </div>
                 <div className='shop-main__select'>
                   <Dropdown
