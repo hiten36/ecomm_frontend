@@ -117,16 +117,17 @@ export const Shop = () => {
   const handleSort = (value) => {
     if (value === 'highToMin') {
       console.log("run")
-      const newOrder = products.sort((a, b) => (a.price < b.price ? 1 : -1));
+      const newOrder = [...products].sort((a, b) => (a.price < b.price ? 1 : -1));
       setProducts(newOrder);
     }
     if (value === 'minToHigh') {
       console.log("ru00n" , products);
-      const newOrder = products.sort((a, b) => (a.price > b.price ? 1 : -1));
-      setProducts(newOrder);
+      const newOrder = [...products].sort((a, b) => (a.price > b.price ? 1 : -1));
+    setProducts(newOrder);
     }
   };
 
+  
 
 
   return (
@@ -143,7 +144,9 @@ export const Shop = () => {
                   className='form-control'
                   placeholder='Search'
                 />
-                <i className='icon-search'></i>
+                <i style={{
+                  cursor:"pointer"
+                }} className='icon-search'></i>
               </div>
               <div className='shop-aside__item'>
                 <span className='shop-aside__item-title'>Categories</span>

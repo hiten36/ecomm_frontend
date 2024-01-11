@@ -1,4 +1,41 @@
+import {  useState } from "react";
+
 export const Subscribe = () => {
+
+  const [email , setEmail] = useState("");
+
+  const emailSend = async(e)=>{
+    e.preventDefault();
+
+    try {
+      const response = await fetch(
+        `http://localhost:4000/api/v1/sendMail`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+
+          },
+          body: JSON.stringify({email})
+        }
+      );
+
+      const formattedResponse = await response.json();
+
+      console.log(formattedResponse);
+
+      if(formattedResponse.success){
+ 
+        alert("Successfuly send the mail");
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+
+  
+  }
+
   return (
     <>
       {/* <!-- BEGIN SUBSCRIBE --> */}
@@ -12,12 +49,16 @@ export const Subscribe = () => {
                 alt=''
               />
             </div>
-            <form>
+            <form onSubmit={emailSend}>
               <h3>Stay in touch</h3>
               <p>Nourish your skin with toxin-free cosmetic roducts.</p>
               <div className='box-field__row'>
                 <div className='box-field'>
                   <input
+                  required
+                  name="email"
+                  onChange={(e)=>setEmail(e.target.value)}
+                  value={email}
                     type='email'
                     className='form-control'
                     placeholder='Enter your email'
