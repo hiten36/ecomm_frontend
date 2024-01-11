@@ -1,8 +1,13 @@
 import Link from 'next/link';
 import productData from 'data/product/product';
+import { useState } from 'react';
 
 export const ProfileAside = () => {
   const recentlyViewed = [...productData].slice(0, 3);
+
+  const [email , setEmail] = useState("");
+
+
   return (
     <>
       <div className='profile-aside'>
@@ -10,12 +15,15 @@ export const ProfileAside = () => {
           <h3>Stay in touch</h3>
           <div className='box-field'>
             <input
+            onChange={(e)=>setEmail(e.target.value)}
               type='email'
+              name='email'
+              value={email}
               className='form-control'
               placeholder='Enter your email'
             />
           </div>
-          <button type='submit' className='btn'>
+          <button onClick={submitHandler} type='submit' className='btn'>
             subscribe
           </button>
           <img
